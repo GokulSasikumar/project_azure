@@ -1,19 +1,61 @@
-from flask import Flask , render_template
+from flask import Flask , render_template,request
 
 app=Flask(__name__)
 
+#---------------------Db-----------------------
+
+import sqlite3
+
+connection=sqlite3.Connection("admin.db")
+
+cursor = connection.cursor()
+
+create_table_query = """CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,Username TEXT NOT NULL,Password TEXT NOT NULL,ConfirmPassword TEXT NOT NULL);
+"""
+cursor.execute(create_table_query)
+connection.commit()
+cursor.close()
+connection.close()
+
+
 @app.route('/')
 def home():
-    return render_template("index.html")        
+    return render_template("index.html")  
+
+
+@app.route('/signup', methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        try:
+            username = request.form["Username"]
+            password = request.form["Password"]
+            cpassword = request.form['ConfirmPassword']
+            sqlconnection=sqlite3=sqlite3.connect(admin.db)
+            cur=sqlconnection.cursor()
+            cur.execute("INSERT INTO users (Username, Password, ConfirmPassword) VALUES (?, ?, ?)")
+            sqlconnection.commit()
+            flash("record added successfully","success")
+        except:
+            flash("Error in Insert operation","danger")
+        finally:
+            return redirect('/login')
+            sqlconnection.close()        
+                    
+        return render_template("signup.html")
+
+
+@app.route('/login')
+def login():
+    return render_template("login.html")       
+
+      
 @app.route('/AesculusHippocastanum.html')
 def AesculusHippocastanum():
     return render_template("AesculusHippocastanum.html")
 @app.route('/BetalLeafPlant.html')
 def BetalLeafPlant():
     return render_template("BetalLeafPlant.html")
-@app.route('/login.html')
-def login():
-    return render_template("login.html")        
+     
 @app.route('/Eveningprimroseoil.html')
 def Eveningprimroseoil():
     return render_template("Eveningprimroseoil.html")
@@ -35,9 +77,7 @@ def MultivitaminPlant():
 @app.route('/RutaGraveolens.html')
 def RutaGraveolens():
     return render_template("RutaGraveolens.html")
-@app.route('/signup.html')
-def signup():
-    return render_template("signup.html")        
+   
 @app.route('/Sambucus.html')
 def Sambucus():
     return render_template("Sambucus.html")
