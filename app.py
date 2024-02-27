@@ -1,53 +1,70 @@
-from flask import Flask , render_template,request
-
+from flask import Flask , render_template, request , redirect , session ,flash
+import secrets
 app=Flask(__name__)
+app.secret_key="123"
 
 #---------------------Db-----------------------
 
 import sqlite3
 
-connection=sqlite3.Connection("admin.db")
+sqlconnection =sqlite3.connect("admin1.db")
+sqlconnection.execute("create table if not exists users(username text,password integer,ConfirmPassword)")
+sqlconnection.close()
 
-cursor = connection.cursor()
-
-create_table_query = """CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,Username TEXT NOT NULL,Password TEXT NOT NULL,ConfirmPassword TEXT NOT NULL);
-"""
-cursor.execute(create_table_query)
-connection.commit()
-cursor.close()
-connection.close()
-
+# Route for the home page
 
 @app.route('/')
 def home():
     return render_template("index.html")  
 
 
-@app.route('/signup', methods=["GET", "POST"])
-def signup():
-    if request.method == "POST":
-        try:
-            username = request.form["Username"]
-            password = request.form["Password"]
-            cpassword = request.form['ConfirmPassword']
-            sqlconnection=sqlite3=sqlite3.connect(admin.db)
-            cur=sqlconnection.cursor()
-            cur.execute("INSERT INTO users (Username, Password, ConfirmPassword) VALUES (?, ?, ?)")
-            sqlconnection.commit()
-            flash("record added successfully","success")
-        except:
-            flash("Error in Insert operation","danger")
-        finally:
-            return redirect('/login')
-            sqlconnection.close()        
-                    
-        return render_template("signup.html")
-
 
 @app.route('/login')
 def login():
-    return render_template("login.html")       
+    return render_template('login.html')
 
+
+@app.route('/signup',methods=["GET","POST"])
+def signup():
+ if request.method =="POST":
+        try:
+            name=request.form['username']
+            psswd=request.form['password']
+            psswd=request.form['ConfirmPassword']
+            sqlconnection=sqlite3.connect('admin1.db')
+            cur=sqlconnection.cursor()
+            cur.execute("insert into users(username,password,ConfirmPassword)values(?,?,?)",(name,psswd))
+            sqlconnection.commit()
+            flash("Record added Successfully","success")
+        except:
+            flash("Error in Insert Operation","danger")
+        finally:   
+           return redirect('/login')
+           sqlconnection.close()
+
+
+ return render_template("login.html")
+
+@app.route('/login',methods =["GET","POST"])
+def log():
+    if request.method =="POST":
+        name=request.form['username']
+        psswd=request.form['password']
+        sqlconnection= sqlite3.connect('admin1.db')
+        sqlconnection.row_factory=sqlite3.Row
+        cur=sqlconnection.cursor()
+        
+        cur.execute("select * from users where username =? and password =?",(name,psswd))
+        data=cur.fetchone()
+        if (data):
+          session['name']=data["username"] 
+          session['password']=data["password"] 
+          flash("Welcome to Oregano  ","logged")
+          return redirect("/")
+        else:
+            flash("Invalid Username and Password","danger")
+            return redirect('/login')
+    return redirect('/')
       
 @app.route('/AesculusHippocastanum.html')
 def AesculusHippocastanum():
