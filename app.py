@@ -131,6 +131,10 @@ def contact():
 @app.route('/checkout.html')
 def checkout():
     return render_template("checkout.html")
+
+@app.route('/success.html')
+def success():
+    return render_template("success.html")
 @app.route('/chamomile.html')
 def chamomile():
     return render_template("chamomile.html")
