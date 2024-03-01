@@ -88,9 +88,11 @@ section {
 /* Style for the signup section */
 
 #signup {
-    background-color: #f9f9f9;
+    background: url(no16.jpg);
     padding: 20px;
     margin-top: 20px;
+    background-position: cover;
+    min-height: 100vh;
 }
 
 .container {
@@ -104,15 +106,20 @@ section {
 
 .form-group {
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .form-control {
-    width: 500px;
+    width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
+.form-group input
+{
+    width: 500px;
+    height: 50px;
+}
 .btn-primary {
     background-color: #007bff;
     color: #fff;
