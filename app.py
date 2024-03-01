@@ -1,78 +1,19 @@
-from flask import Flask , render_template, request , redirect , session ,flash
-import secrets
-app=Flask(__name__)
-app.secret_key="123"
-
-#---------------------Db-----------------------
-
+from flask import Flask, render_template, request, redirect, url_for, session
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
-sqlconnection =sqlite3.connect("admin1.db")
-sqlconnection.execute("create table if not exists users(username text,password integer,ConfirmPassword)")
-sqlconnection.close()
-
-# Route for the home page
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 @app.route('/')
 def home():
     return render_template("index.html")  
-
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-
-@app.route('/signup',methods=["GET","POST"])
-def signup():
- if request.method =="POST":
-        try:
-            name=request.form['username']
-            psswd=request.form['password']
-            psswd=request.form['ConfirmPassword']
-            sqlconnection=sqlite3.connect('admin1.db')
-            cur=sqlconnection.cursor()
-            cur.execute("insert into users(username,password,ConfirmPassword)values(?,?,?)",(name,psswd))
-            sqlconnection.commit()
-            flash("Record added Successfully","success")
-        except:
-            flash("Error in Insert Operation","danger")
-        finally:   
-           return redirect('/login')
-           sqlconnection.close()
-
-
- return render_template("login.html")
-
-@app.route('/login',methods =["GET","POST"])
-def log():
-    if request.method =="POST":
-        name=request.form['username']
-        psswd=request.form['password']
-        sqlconnection= sqlite3.connect('admin1.db')
-        sqlconnection.row_factory=sqlite3.Row
-        cur=sqlconnection.cursor()
-        
-        cur.execute("select * from users where username =? and password =?",(name,psswd))
-        data=cur.fetchone()
-        if (data):
-          session['name']=data["username"] 
-          session['password']=data["password"] 
-          flash("Welcome to Oregano  ","logged")
-          return redirect("/")
-        else:
-            flash("Invalid Username and Password","danger")
-            return redirect('/login')
-    return redirect('/')
-      
 @app.route('/AesculusHippocastanum.html')
 def AesculusHippocastanum():
     return render_template("AesculusHippocastanum.html")
 @app.route('/BetalLeafPlant.html')
 def BetalLeafPlant():
     return render_template("BetalLeafPlant.html")
-     
 @app.route('/Eveningprimroseoil.html')
 def Eveningprimroseoil():
     return render_template("Eveningprimroseoil.html")
@@ -131,7 +72,6 @@ def contact():
 @app.route('/checkout.html')
 def checkout():
     return render_template("checkout.html")
-
 @app.route('/success.html')
 def success():
     return render_template("success.html")
@@ -140,6 +80,70 @@ def chamomile():
     return render_template("chamomile.html")
 @app.route('/Calendula.html')
 def Calendula():
-    return render_template("Calendula.html")                                
-if __name__=="__main__":
-    app.run(debug=True)                                     
+    return render_template("Calendula.html") 
+
+# Function to connect to the SQLite database
+def connect_db():
+    return sqlite3.connect('database.db')
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Connect to the database
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute("""CREATE TABLE IF NOT EXISTS users1 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+);""")
+
+        # Check if the username already exists
+        cursor.execute("SELECT * FROM users1 WHERE username=?", (username,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            conn.close()
+            return 'Username already exists!'
+        else:
+            # Insert new user into the database
+            cursor.execute("INSERT INTO users1 (username, password) VALUES (?, ?)", (username, generate_password_hash(password)))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('login'))
+
+    return render_template('signup.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Connect to the database
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        # Retrieve user from the database
+        cursor.execute("SELECT * FROM users1 WHERE username=?", (username,))
+        user = cursor.fetchone()
+
+        if user and check_password_hash(user[2], password):
+            session['logged_in'] = True
+            conn.close()
+            return redirect('/')
+        else:
+            conn.close()
+            return 'Incorrect username or password'
+
+    return render_template('login.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
