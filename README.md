@@ -24,11 +24,3 @@ Oregano is a project aimed at facilitating the sales of organic products through
 - **Azure Configuration:** Includes configurations for deploying the application on Azure services like Resource Group, Virtual Network setup, and Web App Monitoring.
 - **Integration:** Integration of AI language processing capabilities to enhance user interaction and experience.
 
-## Setup Instructions:
-1. Clone the repository from [[GitHub Repository UR](https://github.com/GokulSasikumar/project_azure/edit/main/README.md)L].
-2. Navigate to the project directory.
-3. Set up the virtual environment using `virtualenv` or any preferred method.
-4. Install dependencies using `pip install -r requirements.txt`.
-5. Run the Flask application using `python app.py`.
-6. Access the application via the provided URL.
-
