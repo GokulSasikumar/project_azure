@@ -81,6 +81,9 @@ def chamomile():
 @app.route('/Calendula.html')
 def Calendula():
     return render_template("Calendula.html") 
+@app.route('/chatbot')
+def chatbot():
+    return render_template("chatbot.html") 
 
 # Function to connect to the SQLite database
 def connect_db():
