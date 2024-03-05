@@ -92,6 +92,12 @@ The platform integrates AI-powered language processing capabilities to enhance u
 
 
 ## Screenshort
+![image](https://github.com/GokulSasikumar/project_azure/assets/153825084/3fc0c4fe-b636-4f86-8311-c281cfeec30b)
+![image](https://github.com/GokulSasikumar/project_azure/assets/153825084/ec23cc5d-6871-45ba-b1b9-559b078a310f)
+![image](https://github.com/GokulSasikumar/project_azure/assets/153825084/0b6450ef-0be6-4e14-8711-5396a877c73e)
+
+
+
 
 ## DemoUrl
 
