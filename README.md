@@ -144,55 +144,7 @@ The platform integrates AI-powered language processing capabilities to enhance u
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## DemoUrl
 
-## Video Demo Url
+https://oregango.azurewebsites.net/
 
