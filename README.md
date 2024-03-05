@@ -1,26 +1,99 @@
-# Project Title: Oregano
+# Oregano: Organic Products Sales Platform
 
-## Description:
-Oregano is a project aimed at facilitating the sales of organic products through a web-based platform. This platform utilizes various front-end and back-end technologies to provide users with a seamless experience. The technologies involved include HTML, CSS, JavaScript, Bootstrap for the front-end, and Python with Flask framework for the back-end. Additionally, Azure services such as Resource Groups, Virtual Networks, and Web App Monitoring are utilized for efficient deployment, management, and monitoring of the application. Furthermore, AI-powered language processing capabilities are integrated to enhance user interaction and experience.
+Oregano is a web-based platform designed to facilitate the sales of organic products. This README provides an overview of the project, its technologies, and instructions for setup and deployment.
 
-## Technologies Used:
-- **Frontend:**
-  - HTML
-  - CSS
-  - JavaScript
-  - Bootstrap
+## Technologies Used
 
-- **Backend:**
-  - Python
-  - Flask
+### Front-end
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
 
-- **Cloud Services:**
-  - Azure Services (Resource Group, Virtual Network)
-  - Azure Web App Monitoring
+### Back-end
+- Python
+- Flask
+- SQLite3
 
-## Project Structure:
-- **Frontend:** Contains HTML, CSS, and JavaScript files responsible for the user interface.
-- **Backend:** Houses Python files containing server-side logic and API endpoints built using Flask.
-- **Azure Configuration:** Includes configurations for deploying the application on Azure services like Resource Group, Virtual Network setup, and Web App Monitoring.
-- **Integration:** Integration of AI language processing capabilities to enhance user interaction and experience.
+### Cloud Services
+- Azure Resource Groups --Azure Resource Groups are logical containers that allow you to manage and organize related Azure resources. These resources can include virtual machines, databases, web apps, storage accounts, and more.
+  
+- Azure Virtual Networks -- Azure Virtual Networks (VNet) allow you to create isolated networks in the Azure cloud, similar to traditional on-premises networks. VNets provide segmentation, isolation, and control over network traffic within Azure.
+
+- Azure virtual nwtworks intergration --Azure Virtual Network Integration allows Azure resources, such as Azure Web Apps or Azure Functions, to access resources within a VNet. This integration provides secure and private connectivity between the Azure service and the resources within the VNet.
+  
+- Azure Web App - Azure Web App is a fully managed platform-as-a-service (PaaS) offering that allows you to build, deploy, and scale web applications and APIs quickly and easily.
+- 
+- Monitoring -Azure Monitoring is a comprehensive solution for monitoring the performance, availability, and health of Azure resources and applications in real-time.
+
+### AI Integration
+- Ai language
+- AI BoT Servies
+
+## Setup Instructions
+
+1. **Clone the repository to your local machine:**
+    ```bash
+    git clone (https://github.com/GokulSasikumar/project_azure)
+    ```
+
+2. **Navigate to the project directory:**
+    ```bash
+    cd oregano
+    ```
+
+3. **Set up the virtual environment (optional but recommended):**
+    ```bash
+    python -m venv venv
+    ```
+
+4. **Activate the virtual environment:**
+    - On Windows:
+        ```bash
+        venv\Scripts\activate
+        ```
+    - On macOS/Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+
+5. **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+6. **Run the Flask application:**
+    ```bash
+    python app.py
+    ```
+
+7. **Access the application in your web browser at** `http://localhost:5000`.
+
+## Deployment on Azure
+
+1. Create an Azure account if you haven't already.
+
+2. Set up Azure Resource Groups and Virtual Networks according to your application requirements.
+
+3. Deploy the Flask application to Azure Web App service.
+
+4. Configure Web App Monitoring for real-time performance monitoring and diagnostics.
+
+## AI Integration
+
+The platform integrates AI-powered language processing capabilities to enhance user interaction and experience. Further details on this integration can be found in the codebase.
+
+## Contributors
+
+- Aravindhan
+- Gokul
+- Vasantha kumar
+- Jeeva
+
+
+## Screenshort
+
+## DemoUrl
+
+## Video Demo Url
 
